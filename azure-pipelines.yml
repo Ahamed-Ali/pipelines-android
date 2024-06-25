@@ -32,3 +32,18 @@ steps:
 
       echo "Emulator started"
   displayName: 'Install and Start Android Emulator'
+  
+- task: UseDotNet@2
+  inputs:
+    packageType: 'sdk'
+    version: '8.00'
+    installationPath: $(Agent.ToolsDirectory)/dotnet
+
+- script: dotnet new maui -n SampleMauiApp
+  displayName: 'Create a new Maui project'
+
+- script: dotnet build SampleMauiApp/SampleMauiApp.csproj
+  displayName: 'Build Maui project'
+
+- script: dotnet run --project SampleMauiApp/SampleMauiApp.csproj --emulator xamarin_android_emulator
+  displayName: 'Run Maui project on emulator'

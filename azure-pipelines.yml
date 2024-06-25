@@ -36,7 +36,7 @@ steps:
 - task: UseDotNet@2
   inputs:
     packageType: 'sdk'
-    version: '8.00'
+    version: '8.0'
     installationPath: $(Agent.ToolsDirectory)/dotnet
 
 - script: dotnet new maui -n SampleMauiApp

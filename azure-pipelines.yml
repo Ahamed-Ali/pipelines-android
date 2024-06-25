@@ -42,18 +42,15 @@ steps:
       dotnet workload install maui --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet7/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
       dotnet workload install android ios maccatalyst tvos macos maui wasm-tools --source https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet7/nuget/v3/index.json --source https://api.nuget.org/v3/index.json
   
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '8.0.205'
-    installationPath: $(Agent.ToolsDirectory)/dotnet
-
 - script: dotnet new maui -n SampleMauiApp
   displayName: 'Create a new Maui project'
 
-- script: dotnet build SampleMauiApp/SampleMauiApp.csproj
+- script: dotnet build SampleMauiApp/SampleMauiApp.csproj -c Release -o $(Build.ArtifactStagingDirectory)
   displayName: 'Build Maui project'
 
-- script: dotnet run --project SampleMauiApp/SampleMauiApp.csproj --emulator xamarin_android_emulator
-  displayName: 'Run Maui project on emulator'
+# - script: dotnet build SampleMauiApp/SampleMauiApp.csproj
+#   displayName: 'Build Maui project'
+
+# - script: dotnet run --project SampleMauiApp/SampleMauiApp.csproj --emulator xamarin_android_emulator
+#   displayName: 'Run Maui project on emulator'
   
